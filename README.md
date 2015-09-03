@@ -2,6 +2,31 @@ angular-hotkeys
 ================
 Configuration-centric keyboard shortcuts for your Angular apps.
 
+#### Added Custom Map featured when you need to add new mappings.  For example, smart TV's that used specia keycodes
+Example: 
+```js
+// custom key codes
+var VK_PLAY = 10;
+var VK_PAUSE = 10;
+
+var customMap = [];
+customMap[VK_PLAY] = "action1";
+customMap[VK_PAUSE] = "action2";
+hotkeys.addCustomMap(customMap)
+
+//Assing key and function, make sure 'action' is key up or it will not firevent
+hotkeys..add({
+            combo: "action1",
+            description: 'Opera Pause',
+            action: 'keyup',
+            callback: function () {              
+              console.log("My custom action!";
+            }
+          });
+... repeat for action2          
+```
+
+
 [![Coverage Status](https://coveralls.io/repos/chieffancypants/angular-hotkeys/badge.png?branch=master)](https://coveralls.io/r/chieffancypants/angular-hotkeys?branch=master)
 ![Build Status](https://magnum-ci.com/status/89743485de3e7311dfc9793e26f39b41.png)
 

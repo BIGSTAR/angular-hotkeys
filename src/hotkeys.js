@@ -85,6 +85,11 @@
         return (element.contentEditable && element.contentEditable == 'true');
       };
 
+      Mousetrap.prototype.customMap = function(map) {
+        for(var key in map){
+          _MAP[key] = map[key];
+        }
+      };
       /**
        * Convert strings like cmd into symbols like ⌘
        * @param  {String} combo Key combination, e.g. 'mod+f'
@@ -472,6 +477,16 @@
       }
 
       /**
+       * Add keys to MAP useful for devices
+       *
+       * @param  {[array]} keys to map
+       * @return null
+       */
+      function _addCustomMap (map) {
+        Mousetrap.customMap(map);
+      }
+
+      /**
        * Binds the hotkey to a particular scope.  Useful if the scope is
        * destroyed, we can automatically destroy the hotkey binding.
        *
@@ -545,6 +560,7 @@
         add                   : _add,
         del                   : _del,
         get                   : _get,
+        addCustomMap         :  _addCustomMap,
         bindTo                : bindTo,
         template              : this.template,
         toggleCheatSheet      : toggleCheatSheet,
