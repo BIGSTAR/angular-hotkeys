@@ -2,7 +2,7 @@ angular-hotkeys
 ================
 Configuration-centric keyboard shortcuts for your Angular apps.
 
-#### Added Custom Map featured when you need to add new mappings.  For example, smart TV's that used specia keycodes
+Now supports custom key mappings.  For example, HTML5 Smart TV's that used special keycodes for remotes.
 Example: 
 ```js
 // custom key codes
