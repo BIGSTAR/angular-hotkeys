@@ -85,11 +85,6 @@
         return (element.contentEditable && element.contentEditable == 'true');
       };
 
-      Mousetrap.prototype.customMap = function(map) {
-        for(var key in map){
-          _MAP[key] = map[key];
-        }
-      };
       /**
        * Convert strings like cmd into symbols like ⌘
        * @param  {String} combo Key combination, e.g. 'mod+f'
@@ -112,7 +107,7 @@
           // try to resolve command / ctrl based on OS:
           if (combo[i] === 'mod') {
             if ($window.navigator && $window.navigator.platform.indexOf('Mac') >=0 ) {
-              combo[i] = 'command';
+              combo[i] = map.command;
             } else {
               combo[i] = 'ctrl';
             }
@@ -483,7 +478,7 @@
        * @return null
        */
       function _addCustomMap (map) {
-        Mousetrap.customMap(map);
+        Mousetrap.addCustomMap(map);
       }
 
       /**

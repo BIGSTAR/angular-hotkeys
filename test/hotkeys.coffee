@@ -115,6 +115,18 @@ describe 'Angular Hotkeys', ->
     KeyEvent.simulate('w'.charCodeAt(0), 90)
     expect(executed).toBe true
 
+  it 'should callback when custom key is mapped hotkey is pressed', ->
+    executed = false
+    customMap = [];
+    customMap[14] = "play";
+    hotkeys.addCustomMap customMap
+    hotkeys.add 'play', ->
+      executed = true
+    , 'keyup'
+
+    KeyEvent.simulate(0, 14)
+    expect(executed).toBe true
+
   it 'should callback according to action', ->
     keypressA = false;
     keypressB = false;
@@ -493,7 +505,7 @@ describe 'Platform specific things', ->
     module ($provide) ->
       $provide.value '$window', angular.extend window,
         navigator:
-          platform: 'Linux x86_64'
+          platform: 'LinuxPlatform specific things should x86_64'
       return
 
     inject (hotkeys) ->

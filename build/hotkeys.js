@@ -91,11 +91,6 @@
         return (element.contentEditable && element.contentEditable == 'true');
       };
 
-      Mousetrap.prototype.customMap = function(map) {
-        for(var key in map){
-          _MAP[key] = map[key];
-        }
-      };
       /**
        * Convert strings like cmd into symbols like ⌘
        * @param  {String} combo Key combination, e.g. 'mod+f'
@@ -118,7 +113,7 @@
           // try to resolve command / ctrl based on OS:
           if (combo[i] === 'mod') {
             if ($window.navigator && $window.navigator.platform.indexOf('Mac') >=0 ) {
-              combo[i] = 'command';
+              combo[i] = map.command;
             } else {
               combo[i] = 'ctrl';
             }
@@ -489,7 +484,7 @@
        * @return null
        */
       function _addCustomMap (map) {
-        Mousetrap.customMap(map);
+        Mousetrap.addCustomMap(map);
       }
 
       /**
@@ -640,7 +635,7 @@
  * Mousetrap is a simple keyboard shortcut library for Javascript with
  * no external dependencies
  *
- * @version 1.5.2
+ * @version 1.5.4
  * @url craig.is/killing/mice
  */
 (function(window, document, undefined) {
@@ -1232,6 +1227,19 @@
         }
 
         /**
+         * adds key/value pairs to keyboard map
+         *
+         *
+         * @param {Array} map
+         * @returns void
+         */
+        self._addCustomMap = function(map) {
+            for(var key in map){
+                _MAP[key] = map[key];
+            }
+        };
+
+        /**
          * handles a character key event
          *
          * @param {string} character
@@ -1604,6 +1612,14 @@
     Mousetrap.prototype.handleKey = function() {
         var self = this;
         return self._handleKey.apply(self, arguments);
+    };
+
+    /**
+     * exposes _addCustomMap publicly so it can be overwritten by extensions
+     */
+    Mousetrap.prototype.addCustomMap = function() {
+        var self = this;
+        return self._addCustomMap.apply(self, arguments);
     };
 
     /**
